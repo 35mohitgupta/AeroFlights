@@ -42,6 +42,7 @@ flight_no varchar(10),
 offer_title varchar(20),
 no_of_tickets int,
 total_amount decimal,
+booking_status varchar(10),
 FOREIGN KEY(username) REFERENCES user(username),
 FOREIGN KEY(flight_no) REFERENCES flight(flight_no),
 FOREIGN KEY(offer_title) REFERENCES offer(offer_title)
