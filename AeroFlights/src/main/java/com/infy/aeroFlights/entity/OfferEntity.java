@@ -4,8 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.infy.aeroFlights.model.OfferStatus;
+
 @Entity(name="offer")
-public class Offer {
+public class OfferEntity {
 
 	@Id
 	@Column(name = "offer_title")
@@ -13,6 +15,10 @@ public class Offer {
 	
 	@Column(name = "discount")
 	private Double discount;
+
+	@Column(name = "status")
+	private OfferStatus status;
+
 	
 	@Override
 	public int hashCode() {
@@ -32,7 +38,7 @@ public class Offer {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Offer other = (Offer) obj;
+		OfferEntity other = (OfferEntity) obj;
 		if (discount == null) {
 			if (other.discount != null)
 				return false;
@@ -72,7 +78,5 @@ public class Offer {
 		this.status = status;
 	}
 
-	@Column(name = "status")
-	private OfferStatus status;
 	
 }

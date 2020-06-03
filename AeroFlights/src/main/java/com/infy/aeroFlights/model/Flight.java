@@ -1,34 +1,21 @@
-package com.infy.aeroFlights.entity;
+package com.infy.aeroFlights.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity(name="flight")
 public class Flight {
 
-	@Id
-	@Column(name="flight_no")
 	private String flightNo;
 	
-	@Column(name="source")
 	private String source;
 	
-	@Column(name="destination")
 	private String destination;
 	
-	@Column(name="departure")
 	private LocalDateTime departure;
 	
-	@Column(name="arrival")
 	private LocalDateTime arrival;
 	
-	@Column(name="no_of_seats")
 	private Integer noOfSeats;
 	
-	@Column(name="price")
 	private Double price;
 
 	public String getFlightNo() {
@@ -147,5 +134,7 @@ public class Flight {
 			return false;
 		return true;
 	}
+
+	
 	
 }

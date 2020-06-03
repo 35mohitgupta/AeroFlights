@@ -3,8 +3,10 @@ package com.infy.aeroFlights.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import com.infy.aeroFlights.model.Gender;
+
 @Entity(name = "passenger")
-public class Passenger {
+public class PassengerEntity {
 
 	@Column(name = "name")
 	private String name;
@@ -33,7 +35,7 @@ public class Passenger {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Passenger other = (Passenger) obj;
+		PassengerEntity other = (PassengerEntity) obj;
 		if (age == null) {
 			if (other.age != null)
 				return false;

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity(name = "user")
-public class User {
+public class UserEntity {
 	
 	@Id
 	@Column(name="admin")
@@ -71,7 +71,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		UserEntity other = (UserEntity) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;

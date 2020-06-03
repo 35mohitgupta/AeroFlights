@@ -1,4 +1,4 @@
-package com.infy.aeroFlights.entity;
+package com.infy.aeroFlights.model;
 
 public enum OfferStatus {
 	ACTIVE,INACTIVE

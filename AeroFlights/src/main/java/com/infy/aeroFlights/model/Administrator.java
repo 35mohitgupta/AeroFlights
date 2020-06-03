@@ -1,23 +1,13 @@
-package com.infy.aeroFlights.entity;
+package com.infy.aeroFlights.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity(name = "admin")
 public class Administrator {
 
-	@Id
-	@Column(name="admin")
 	private String username;
 	
-	@Column(name="email")
 	private String email;
 	
-	@Column(name="password")
 	private String password;
 	
-	@Column(name="phone_no")
 	private String phoneNo;
 
 	public String getUsername() {
@@ -95,4 +85,5 @@ public class Administrator {
 		return true;
 	}
 
+		
 }
