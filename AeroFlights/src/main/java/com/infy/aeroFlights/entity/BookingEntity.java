@@ -20,17 +20,17 @@ public class BookingEntity {
 	@Column(name="booking_id")
 	private Integer bookingId;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="username")
-	private String username;
+	private UserEntity user;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="flight_no")
-	private String flightNo;
+	private FlightEntity flight;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="offer_title")
-	private String offerApplied;
+	private OfferEntity offerApplied;
 	
 	@Column(name="no_of_tickets")
 	private Integer noOfTickets;
@@ -50,27 +50,27 @@ public class BookingEntity {
 		this.bookingId = bookingId;
 	}
 
-	public String getUsername() {
-		return username;
+	public UserEntity getUser() {
+		return user;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
-	public String getFlightNo() {
-		return flightNo;
+	public FlightEntity getFlight() {
+		return flight;
 	}
 
-	public void setFlightNo(String flightNo) {
-		this.flightNo = flightNo;
+	public void setFlight(FlightEntity flight) {
+		this.flight = flight;
 	}
 
-	public String getOfferApplied() {
+	public OfferEntity getOfferApplied() {
 		return offerApplied;
 	}
 
-	public void setOfferApplied(String offerApplied) {
+	public void setOfferApplied(OfferEntity offerApplied) {
 		this.offerApplied = offerApplied;
 	}
 
@@ -103,12 +103,12 @@ public class BookingEntity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((bookingId == null) ? 0 : bookingId.hashCode());
-		result = prime * result + ((flightNo == null) ? 0 : flightNo.hashCode());
+		result = prime * result + ((flight == null) ? 0 : flight.hashCode());
 		result = prime * result + ((noOfTickets == null) ? 0 : noOfTickets.hashCode());
 		result = prime * result + ((offerApplied == null) ? 0 : offerApplied.hashCode());
 		result = prime * result + ((passengerList == null) ? 0 : passengerList.hashCode());
 		result = prime * result + ((totalAmount == null) ? 0 : totalAmount.hashCode());
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -126,10 +126,10 @@ public class BookingEntity {
 				return false;
 		} else if (!bookingId.equals(other.bookingId))
 			return false;
-		if (flightNo == null) {
-			if (other.flightNo != null)
+		if (flight == null) {
+			if (other.flight != null)
 				return false;
-		} else if (!flightNo.equals(other.flightNo))
+		} else if (!flight.equals(other.flight))
 			return false;
 		if (noOfTickets == null) {
 			if (other.noOfTickets != null)
@@ -151,13 +151,13 @@ public class BookingEntity {
 				return false;
 		} else if (!totalAmount.equals(other.totalAmount))
 			return false;
-		if (username == null) {
-			if (other.username != null)
+		if (user == null) {
+			if (other.user != null)
 				return false;
-		} else if (!username.equals(other.username))
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
-	
-	
+
+		
 }

@@ -1,5 +1,7 @@
 package com.infy.aeroFlights.model;
 
+import com.infy.aeroFlights.entity.AdministratorEntity;
+
 public class Administrator {
 
 	private String username;
@@ -85,5 +87,21 @@ public class Administrator {
 		return true;
 	}
 
-		
+	public AdministratorEntity toEntity() {
+		AdministratorEntity administratorEntity = new AdministratorEntity();
+		administratorEntity.setEmail(email);
+		administratorEntity.setPassword(password);
+		administratorEntity.setPhoneNo(phoneNo);
+		administratorEntity.setUsername(username);
+		return administratorEntity;
+	}
+	
+	public static Administrator toModel(AdministratorEntity administratorEntity) {
+		Administrator administrator = new Administrator();
+		administrator.setEmail(administratorEntity.getEmail());
+		administrator.setPassword(administratorEntity.getPassword());
+		administrator.setPhoneNo(administratorEntity.getPhoneNo());
+		administrator.setUsername(administratorEntity.getUsername());
+		return administrator;
+	}
 }

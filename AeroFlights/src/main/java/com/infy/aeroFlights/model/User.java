@@ -1,5 +1,8 @@
 package com.infy.aeroFlights.model;
 
+
+import com.infy.aeroFlights.entity.UserEntity;
+
 public class User {
 
 	private String username;
@@ -85,6 +88,22 @@ public class User {
 		return true;
 	}
 
-
+	public UserEntity toEntity() {
+		UserEntity userEntity = new UserEntity();
+		userEntity.setEmail(email);
+		userEntity.setPassword(password);
+		userEntity.setPhoneNo(phoneNo);
+		userEntity.setUsername(username);
+		return userEntity;
+	}
+	
+	public static User toModel(UserEntity userEntity) {
+		User user = new User();
+		user.setEmail(userEntity.getEmail());
+		user.setPassword(userEntity.getPassword());
+		user.setPhoneNo(userEntity.getPhoneNo());
+		user.setUsername(userEntity.getUsername());
+		return user;
+	}
 	
 }

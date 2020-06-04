@@ -1,5 +1,7 @@
 package com.infy.aeroFlights.model;
 
+import com.infy.aeroFlights.entity.OfferEntity;
+
 public class Offer {
 
 	private String offerTitle;
@@ -65,6 +67,22 @@ public class Offer {
 		if (status != other.status)
 			return false;
 		return true;
+	}
+	
+	public OfferEntity toEntity() {
+		OfferEntity offerEntity = new OfferEntity();
+		offerEntity.setDiscount(discount);
+		offerEntity.setOfferTitle(offerTitle);
+		offerEntity.setStatus(status);
+		return offerEntity;
+	}
+	
+	public static Offer toModel(OfferEntity offerEntity) {
+		Offer offer = new Offer();
+		offer.discount = offerEntity.getDiscount();
+		offer.offerTitle = offerEntity.getOfferTitle();
+		offer.status = offerEntity.getStatus();
+		return offer;
 	}
 	
 }

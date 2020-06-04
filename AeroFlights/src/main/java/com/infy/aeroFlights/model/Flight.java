@@ -2,6 +2,8 @@ package com.infy.aeroFlights.model;
 
 import java.time.LocalDateTime;
 
+import com.infy.aeroFlights.entity.FlightEntity;
+
 public class Flight {
 
 	private String flightNo;
@@ -135,6 +137,28 @@ public class Flight {
 		return true;
 	}
 
-	
+	public FlightEntity toEntity() {
+		FlightEntity flightEntity = new FlightEntity();
+		flightEntity.setArrival(arrival);
+		flightEntity.setDeparture(departure);
+		flightEntity.setDestination(destination);
+		flightEntity.setFlightNo(flightNo);
+		flightEntity.setNoOfSeats(noOfSeats);
+		flightEntity.setPrice(price);
+		flightEntity.setSource(source);
+		return flightEntity;
+	}
+
+	public static Flight toModel(FlightEntity flightEntity) {
+		Flight flight = new Flight();
+		flight.arrival = flightEntity.getArrival();
+		flight.departure = flightEntity.getDeparture();
+		flight.destination = flightEntity.getDestination();
+		flight.flightNo = flightEntity.getFlightNo();
+		flight.noOfSeats = flightEntity.getNoOfSeats();
+		flight.price = flightEntity.getPrice();
+		flight.source= flightEntity.getSource();
+		return flight;
+	}
 	
 }

@@ -1,5 +1,7 @@
 package com.infy.aeroFlights.model;
 
+import com.infy.aeroFlights.entity.PassengerEntity;
+
 public class Passenger {
 
 	private String name;
@@ -64,6 +66,23 @@ public class Passenger {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+	
+	public PassengerEntity toEntity() {
+		PassengerEntity passengerEntity = new PassengerEntity();
+		passengerEntity.setAge(age);
+		passengerEntity.setGender(gender);
+		passengerEntity.setName(name);
+		return passengerEntity;
+	}
+	
+	
+	public static Passenger toModel(PassengerEntity passengerEntity) {
+		Passenger passenger = new Passenger();
+		passenger.age = passengerEntity.getAge();
+		passenger.gender = passengerEntity.getGender();
+		passenger.name = passengerEntity.getName();
+		return passenger;
 	}
 	
 }
