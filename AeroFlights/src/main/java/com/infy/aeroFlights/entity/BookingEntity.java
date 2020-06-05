@@ -5,14 +5,21 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Entity(name="booking")
+import com.infy.aeroFlights.model.BookingStatus;
+
+@Entity
+@Table(name="booking")
 public class BookingEntity {
 
 	@Id
@@ -20,15 +27,15 @@ public class BookingEntity {
 	@Column(name="booking_id")
 	private Integer bookingId;
 	
-	@ManyToOne(cascade = CascadeType.REFRESH)
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name="username")
 	private UserEntity user;
 	
-	@ManyToOne(cascade = CascadeType.REFRESH)
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name="flight_no")
 	private FlightEntity flight;
 	
-	@ManyToOne(cascade = CascadeType.REFRESH)
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name="offer_title")
 	private OfferEntity offerApplied;
 	
@@ -41,7 +48,21 @@ public class BookingEntity {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="booking_id")
 	private List<PassengerEntity> passengerList;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "booking_status")
+	private BookingStatus bookingStatus;
 
+	
+	public BookingStatus getBookingStatus() {
+		return bookingStatus;
+	}
+
+	public void setBookingStatus(BookingStatus bookingStatus) {
+		this.bookingStatus = bookingStatus;
+	}
+
+	
 	public Integer getBookingId() {
 		return bookingId;
 	}
@@ -103,6 +124,7 @@ public class BookingEntity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((bookingId == null) ? 0 : bookingId.hashCode());
+		result = prime * result + ((bookingStatus == null) ? 0 : bookingStatus.hashCode());
 		result = prime * result + ((flight == null) ? 0 : flight.hashCode());
 		result = prime * result + ((noOfTickets == null) ? 0 : noOfTickets.hashCode());
 		result = prime * result + ((offerApplied == null) ? 0 : offerApplied.hashCode());
@@ -125,6 +147,8 @@ public class BookingEntity {
 			if (other.bookingId != null)
 				return false;
 		} else if (!bookingId.equals(other.bookingId))
+			return false;
+		if (bookingStatus != other.bookingStatus)
 			return false;
 		if (flight == null) {
 			if (other.flight != null)
@@ -158,6 +182,8 @@ public class BookingEntity {
 			return false;
 		return true;
 	}
+
+	
 
 		
 }

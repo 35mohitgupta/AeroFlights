@@ -3,12 +3,14 @@ package com.infy.aeroFlights.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "user")
+@Entity
+@Table(name = "user")
 public class UserEntity {
 	
 	@Id
-	@Column(name="admin")
+	@Column(name="username")
 	private String username;
 	
 	@Column(name="email")

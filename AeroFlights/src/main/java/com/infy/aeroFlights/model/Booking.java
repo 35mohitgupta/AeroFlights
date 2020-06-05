@@ -21,14 +21,23 @@ public class Booking {
 	
 	private List<Passenger> passengerList;
 	
+	private BookingStatus bookingStatus;
 	
 	
+	public BookingStatus getBookingStatus() {
+		return bookingStatus;
+	}
+
+	public void setBookingStatus(BookingStatus bookingStatus) {
+		this.bookingStatus = bookingStatus;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((bookingId == null) ? 0 : bookingId.hashCode());
+		result = prime * result + ((bookingStatus == null) ? 0 : bookingStatus.hashCode());
 		result = prime * result + ((flight == null) ? 0 : flight.hashCode());
 		result = prime * result + ((noOfTickets == null) ? 0 : noOfTickets.hashCode());
 		result = prime * result + ((offerApplied == null) ? 0 : offerApplied.hashCode());
@@ -51,6 +60,8 @@ public class Booking {
 			if (other.bookingId != null)
 				return false;
 		} else if (!bookingId.equals(other.bookingId))
+			return false;
+		if (bookingStatus != other.bookingStatus)
 			return false;
 		if (flight == null) {
 			if (other.flight != null)
@@ -160,6 +171,7 @@ public class Booking {
 		bookingEntity.setPassengerList(passengerEntities);
 		bookingEntity.setTotalAmount(totalAmount);
 		bookingEntity.setUser(user.toEntity());
+		bookingEntity.setBookingStatus(bookingStatus);
 		return bookingEntity;
 	}
 	
@@ -177,6 +189,7 @@ public class Booking {
 		booking.passengerList = passengers;
 		booking.totalAmount = bookingEntity.getTotalAmount();
 		booking.user = User.toModel(bookingEntity.getUser());
+		booking.bookingStatus = bookingEntity.getBookingStatus();
 		return booking;
 	}
 

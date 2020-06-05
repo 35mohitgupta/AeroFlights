@@ -2,11 +2,15 @@ package com.infy.aeroFlights.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.infy.aeroFlights.model.OfferStatus;
 
-@Entity(name="offer")
+@Entity
+@Table(name="offer")
 public class OfferEntity {
 
 	@Id
@@ -16,6 +20,7 @@ public class OfferEntity {
 	@Column(name = "discount")
 	private Double discount;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
 	private OfferStatus status;
 

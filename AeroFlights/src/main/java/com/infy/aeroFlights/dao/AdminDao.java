@@ -1,6 +1,6 @@
 package com.infy.aeroFlights.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.infy.aeroFlights.model.Booking;
 import com.infy.aeroFlights.model.Flight;
@@ -8,9 +8,9 @@ import com.infy.aeroFlights.model.Offer;
 
 public interface AdminDao {
 
-public ArrayList<Booking> viewBookings();
+public List<Booking> viewBookings();
 	
-	public ArrayList<Offer> viewOffers();
+	public List<Offer> viewOffers();
 	
 	public void createFlight(Flight flight);
 	

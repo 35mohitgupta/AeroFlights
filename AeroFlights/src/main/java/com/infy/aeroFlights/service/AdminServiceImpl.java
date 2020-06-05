@@ -1,21 +1,33 @@
 package com.infy.aeroFlights.service;
 
-import java.util.ArrayList;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.infy.aeroFlights.dao.AdminDao;
 import com.infy.aeroFlights.model.Booking;
 import com.infy.aeroFlights.model.Flight;
 import com.infy.aeroFlights.model.Offer;
 
+@Transactional
+@Service(value = "AdminService")
 public class AdminServiceImpl implements AdminService{
 
+	@Autowired
+	private AdminDao adminDao;
+	
 	@Override
-	public ArrayList<Booking> viewBookings() {
+	public List<Booking> viewBookings() {
 		// TODO Auto-generated method stub
-		return null;
+		return adminDao.viewBookings();
 	}
 
 	@Override
-	public ArrayList<Offer> viewOffers() {
+	public List<Offer> viewOffers() {
 		// TODO Auto-generated method stub
 		return null;
 	}

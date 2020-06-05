@@ -3,8 +3,10 @@ package com.infy.aeroFlights.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "admin")
+@Entity
+@Table(name = "admin")
 public class AdministratorEntity {
 
 	@Id
