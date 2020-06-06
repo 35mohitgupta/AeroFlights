@@ -8,7 +8,11 @@ import com.infy.aeroFlights.model.Offer;
 
 public interface AdminDao {
 
-public List<Booking> viewBookings();
+	public List<Booking> viewBookings();
+	
+	public void acceptbookingRequest(Integer bookingId);
+
+	public void rejectBookingRequest(Integer bookingId);
 	
 	public List<Offer> viewOffers();
 	

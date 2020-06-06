@@ -10,6 +10,10 @@ public interface AdminService {
 
 	public List<Booking> viewBookings();
 	
+	public void acceptbookingRequest(Integer bookingId);
+
+	public void rejectBookingRequest(Integer bookingId);
+	
 	public List<Offer> viewOffers();
 	
 	public void createFlight(Flight flight);

@@ -1,19 +1,12 @@
 package com.infy.aeroFlights.dao;
 
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import com.infy.aeroFlights.entity.BookingEntity;
@@ -24,9 +17,6 @@ import com.infy.aeroFlights.model.Offer;
 @Repository(value = "AdminDao")
 public class AdminDaoImpl implements AdminDao{
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	
 	@PersistenceContext
 	private EntityManager entityManager;
 	
@@ -65,6 +55,24 @@ public class AdminDaoImpl implements AdminDao{
 	public void removeOffer(String offertitle) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void acceptbookingRequest(Integer bookingId) {
+		// TODO Auto-generated method stub
+		String sqlQuery = "UPDATE BookingEntity b SET b.bookingStatus='ACCEPTED' WHERE b.bookingId=:bookingId";
+		Query query = entityManager.createQuery(sqlQuery);
+		query.setParameter("bookingId", bookingId);
+		query.executeUpdate();
+	}
+
+	@Override
+	public void rejectBookingRequest(Integer bookingId) {
+		// TODO Auto-generated method stub
+		String sqlQuery = "UPDATE BookingEntity b SET b.bookingStatus='REJECTED' WHERE b.bookingId=:bookingId";
+		Query query = entityManager.createQuery(sqlQuery);
+		query.setParameter("bookingId", bookingId);
+		query.executeUpdate();
 	}
 
 	

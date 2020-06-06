@@ -50,4 +50,16 @@ public class AdminServiceImpl implements AdminService{
 		
 	}
 
+	@Override
+	public void acceptbookingRequest(Integer bookingId) {
+		// TODO Auto-generated method stub
+		adminDao.acceptbookingRequest(bookingId);
+	}
+
+	@Override
+	public void rejectBookingRequest(Integer bookingId) {
+		// TODO Auto-generated method stub
+		adminDao.rejectBookingRequest(bookingId);
+	}
+
 }
