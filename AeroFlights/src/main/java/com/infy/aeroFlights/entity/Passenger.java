@@ -7,11 +7,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.infy.aeroFlights.model.Gender;
+import com.infy.aeroFlights.dto.Gender;
 
 @Entity
 @Table(name = "passenger")
-public class PassengerEntity {
+public class Passenger {
 
 	@Id
 	@Column(name="passenger_id")
@@ -47,7 +47,7 @@ public class PassengerEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PassengerEntity other = (PassengerEntity) obj;
+		Passenger other = (Passenger) obj;
 		if (age == null) {
 			if (other.age != null)
 				return false;

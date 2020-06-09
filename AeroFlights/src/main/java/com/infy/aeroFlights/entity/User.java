@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class UserEntity {
+public class User {
 	
 	@Id
 	@Column(name="username")
@@ -73,7 +73,7 @@ public class UserEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserEntity other = (UserEntity) obj;
+		User other = (User) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;

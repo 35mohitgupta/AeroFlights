@@ -1,9 +1,8 @@
-package com.infy.aeroFlights.model;
+package com.infy.aeroFlights.dto;
 
+import com.infy.aeroFlights.entity.Administrator;
 
-import com.infy.aeroFlights.entity.UserEntity;
-
-public class User {
+public class AdministratorDTO {
 
 	private String username;
 	
@@ -64,7 +63,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		AdministratorDTO other = (AdministratorDTO) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -88,22 +87,21 @@ public class User {
 		return true;
 	}
 
-	public UserEntity toEntity() {
-		UserEntity userEntity = new UserEntity();
-		userEntity.setEmail(email);
-		userEntity.setPassword(password);
-		userEntity.setPhoneNo(phoneNo);
-		userEntity.setUsername(username);
-		return userEntity;
+	public Administrator toEntity() {
+		Administrator administratorEntity = new Administrator();
+		administratorEntity.setEmail(email);
+		administratorEntity.setPassword(password);
+		administratorEntity.setPhoneNo(phoneNo);
+		administratorEntity.setUsername(username);
+		return administratorEntity;
 	}
 	
-	public static User toModel(UserEntity userEntity) {
-		User user = new User();
-		user.setEmail(userEntity.getEmail());
-		user.setPassword(userEntity.getPassword());
-		user.setPhoneNo(userEntity.getPhoneNo());
-		user.setUsername(userEntity.getUsername());
-		return user;
+	public static AdministratorDTO toModel(Administrator administratorEntity) {
+		AdministratorDTO administrator = new AdministratorDTO();
+		administrator.setEmail(administratorEntity.getEmail());
+		administrator.setPassword(administratorEntity.getPassword());
+		administrator.setPhoneNo(administratorEntity.getPhoneNo());
+		administrator.setUsername(administratorEntity.getUsername());
+		return administrator;
 	}
-	
 }

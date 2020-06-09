@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.infy.aeroFlights.model.Booking;
+import com.infy.aeroFlights.dto.BookingDTO;
+import com.infy.aeroFlights.dto.FlightDTO;
 import com.infy.aeroFlights.service.AdminService;
 
 @CrossOrigin
@@ -25,20 +28,27 @@ public class AdminController {
 	private AdminService adminService;
 	
 	@GetMapping("/view-requests")
-	public List<Booking> viewRequests() {
-		List<Booking> bookingRequests = adminService.viewBookings();
-		return bookingRequests;
+	public ResponseEntity<List<BookingDTO>>  viewRequests() {
+		List<BookingDTO> bookingRequests = adminService.viewBookings();
+		ResponseEntity<List<BookingDTO>> reqesponse = new ResponseEntity<List<BookingDTO>>(bookingRequests, HttpStatus.OK);
+		return reqesponse;
 	}
 	
-	@PostMapping("/accept-request/{bookingId}")
-	public String acceptRequest(@PathVariable("bookingId") Integer bookingId) {
+	@PutMapping("/accept-request/{bookingId}")
+	public ResponseEntity<String> acceptRequest(@PathVariable("bookingId") Integer bookingId) {
 		adminService.acceptbookingRequest(bookingId);
-		return "Flight request with BookingId: "+bookingId+" is ACCEPTED";
+		return new ResponseEntity<String>("Flight request with BookingId: "+bookingId+" is ACCEPTED", HttpStatus.OK);
 	}
 	
-	@PostMapping("/reject-request/{bookingId}")
-	public String rejectRequest(@PathVariable("bookingId") Integer bookingId) {
+	@PutMapping("/reject-request/{bookingId}")
+	public ResponseEntity<String> rejectRequest(@PathVariable("bookingId") Integer bookingId) {
 		adminService.rejectBookingRequest(bookingId);
-		return "Flight request with BookingId: "+bookingId+" is REJECTED";
+		return new ResponseEntity<String>("Flight request with BookingId: "+bookingId+" is REJECTED", HttpStatus.OK);
+	}
+	
+	@PostMapping("/create-flight")
+	public ResponseEntity<String> createFlight(@RequestBody FlightDTO newFlight) {
+		adminService.createFlight(newFlight);
+		return new ResponseEntity<String>("New Flight is created with FlightNo: "+newFlight.getFlightNo(), HttpStatus.OK);
 	}
 }

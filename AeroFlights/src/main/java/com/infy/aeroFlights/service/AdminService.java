@@ -2,23 +2,23 @@ package com.infy.aeroFlights.service;
 
 import java.util.List;
 
-import com.infy.aeroFlights.model.Booking;
-import com.infy.aeroFlights.model.Flight;
-import com.infy.aeroFlights.model.Offer;
+import com.infy.aeroFlights.dto.BookingDTO;
+import com.infy.aeroFlights.dto.FlightDTO;
+import com.infy.aeroFlights.dto.OfferDTO;
 
 public interface AdminService {
 
-	public List<Booking> viewBookings();
+	public List<BookingDTO> viewBookings();
 	
 	public void acceptbookingRequest(Integer bookingId);
 
 	public void rejectBookingRequest(Integer bookingId);
 	
-	public List<Offer> viewOffers();
+	public List<OfferDTO> viewOffers();
 	
-	public void createFlight(Flight flight);
+	public void createFlight(FlightDTO flight);
 	
-	public void addOffer(Offer offer);
+	public void addOffer(OfferDTO offer);
 	
 	public void removeOffer(String offertitle);
 	

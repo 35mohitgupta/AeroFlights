@@ -1,7 +1,9 @@
 package com.infy.aeroFlights.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -9,37 +11,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.infy.aeroFlights.dao.AdminDao;
-import com.infy.aeroFlights.model.Booking;
-import com.infy.aeroFlights.model.Flight;
-import com.infy.aeroFlights.model.Offer;
+import com.infy.aeroFlights.dto.BookingDTO;
+import com.infy.aeroFlights.dto.BookingStatus;
+import com.infy.aeroFlights.dto.FlightDTO;
+import com.infy.aeroFlights.dto.OfferDTO;
+import com.infy.aeroFlights.entity.Booking;
+import com.infy.aeroFlights.entity.Flight;
+import com.infy.aeroFlights.repository.BookingRepository;
+import com.infy.aeroFlights.repository.FlightRepository;
 
 @Transactional
 @Service(value = "AdminService")
 public class AdminServiceImpl implements AdminService{
 
 	@Autowired
-	private AdminDao adminDao;
+	private BookingRepository bookingRpository;
+	
+	@Autowired
+	private FlightRepository flightRepository;
 	
 	@Override
-	public List<Booking> viewBookings() {
-		// TODO Auto-generated method stub
-		return adminDao.viewBookings();
+	public List<BookingDTO> viewBookings() {
+		
+		List<Booking> bookingEntities = bookingRpository.findByBookingStatusIn(BookingStatus.ACCEPTED,BookingStatus.REJECTED,BookingStatus.REQUESTED);
+		List<BookingDTO> bookingRequests = new ArrayList<BookingDTO>();
+		for(Booking bookingEntity: bookingEntities) {
+			bookingRequests.add(BookingDTO.toModel(bookingEntity));
+		}
+		return bookingRequests;
 	}
 
 	@Override
-	public List<Offer> viewOffers() {
+	public List<OfferDTO> viewOffers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void createFlight(Flight flight) {
-		// TODO Auto-generated method stub
-		
+	public void createFlight(FlightDTO flight) {
+		Flight flightEntity = flight.toEntity();
+		flightRepository.saveAndFlush(flightEntity);
 	}
 
 	@Override
-	public void addOffer(Offer offer) {
+	public void addOffer(OfferDTO offer) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -53,13 +68,23 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void acceptbookingRequest(Integer bookingId) {
 		// TODO Auto-generated method stub
-		adminDao.acceptbookingRequest(bookingId);
+		Optional<Booking> bookingOptional = bookingRpository.findById(bookingId);
+		if(bookingOptional.isPresent()) {
+			Booking booking = bookingOptional.get();
+			booking.setBookingStatus(BookingStatus.ACCEPTED);
+			bookingRpository.saveAndFlush(booking);
+		}
 	}
 
 	@Override
 	public void rejectBookingRequest(Integer bookingId) {
 		// TODO Auto-generated method stub
-		adminDao.rejectBookingRequest(bookingId);
+		Optional<Booking> bookingOptional = bookingRpository.findById(bookingId);
+		if(bookingOptional.isPresent()) {
+			Booking booking = bookingOptional.get();
+			booking.setBookingStatus(BookingStatus.REJECTED);
+			bookingRpository.saveAndFlush(booking);
+		}
 	}
 
 }

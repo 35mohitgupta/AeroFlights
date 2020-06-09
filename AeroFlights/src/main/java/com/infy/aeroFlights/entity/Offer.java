@@ -1,40 +1,30 @@
-package com.infy.aeroFlights.model;
+package com.infy.aeroFlights.entity;
 
-import com.infy.aeroFlights.entity.OfferEntity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import com.infy.aeroFlights.dto.OfferStatus;
+
+@Entity
+@Table(name="offer")
 public class Offer {
 
+	@Id
+	@Column(name = "offer_title")
 	private String offerTitle;
 	
+	@Column(name = "discount")
 	private Double discount;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status")
 	private OfferStatus status;
+
 	
-	
-	public String getOfferTitle() {
-		return offerTitle;
-	}
-
-	public void setOfferTitle(String offerTitle) {
-		this.offerTitle = offerTitle;
-	}
-
-	public Double getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(Double discount) {
-		this.discount = discount;
-	}
-
-	public OfferStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(OfferStatus status) {
-		this.status = status;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -68,21 +58,30 @@ public class Offer {
 			return false;
 		return true;
 	}
-	
-	public OfferEntity toEntity() {
-		OfferEntity offerEntity = new OfferEntity();
-		offerEntity.setDiscount(discount);
-		offerEntity.setOfferTitle(offerTitle);
-		offerEntity.setStatus(status);
-		return offerEntity;
+
+	public String getOfferTitle() {
+		return offerTitle;
 	}
-	
-	public static Offer toModel(OfferEntity offerEntity) {
-		Offer offer = new Offer();
-		offer.discount = offerEntity.getDiscount();
-		offer.offerTitle = offerEntity.getOfferTitle();
-		offer.status = offerEntity.getStatus();
-		return offer;
+
+	public void setOfferTitle(String offerTitle) {
+		this.offerTitle = offerTitle;
 	}
+
+	public Double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Double discount) {
+		this.discount = discount;
+	}
+
+	public OfferStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OfferStatus status) {
+		this.status = status;
+	}
+
 	
 }

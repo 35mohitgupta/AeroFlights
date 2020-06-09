@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "admin")
-public class AdministratorEntity {
+public class Administrator {
 
 	@Id
 	@Column(name="admin")
@@ -73,7 +73,7 @@ public class AdministratorEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AdministratorEntity other = (AdministratorEntity) obj;
+		Administrator other = (Administrator) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;

@@ -16,11 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.infy.aeroFlights.model.BookingStatus;
+import com.infy.aeroFlights.dto.BookingStatus;
 
 @Entity
 @Table(name="booking")
-public class BookingEntity {
+public class Booking {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -29,15 +29,15 @@ public class BookingEntity {
 	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name="username")
-	private UserEntity user;
+	private User user;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name="flight_no")
-	private FlightEntity flight;
+	private Flight flight;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name="offer_title")
-	private OfferEntity offerApplied;
+	private Offer offerApplied;
 	
 	@Column(name="no_of_tickets")
 	private Integer noOfTickets;
@@ -47,7 +47,7 @@ public class BookingEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="booking_id")
-	private List<PassengerEntity> passengerList;
+	private List<Passenger> passengerList;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "booking_status")
@@ -71,27 +71,27 @@ public class BookingEntity {
 		this.bookingId = bookingId;
 	}
 
-	public UserEntity getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public FlightEntity getFlight() {
+	public Flight getFlight() {
 		return flight;
 	}
 
-	public void setFlight(FlightEntity flight) {
+	public void setFlight(Flight flight) {
 		this.flight = flight;
 	}
 
-	public OfferEntity getOfferApplied() {
+	public Offer getOfferApplied() {
 		return offerApplied;
 	}
 
-	public void setOfferApplied(OfferEntity offerApplied) {
+	public void setOfferApplied(Offer offerApplied) {
 		this.offerApplied = offerApplied;
 	}
 
@@ -111,11 +111,11 @@ public class BookingEntity {
 		this.totalAmount = totalAmount;
 	}
 
-	public List<PassengerEntity> getPassengerList() {
+	public List<Passenger> getPassengerList() {
 		return passengerList;
 	}
 
-	public void setPassengerList(List<PassengerEntity> passengerList) {
+	public void setPassengerList(List<Passenger> passengerList) {
 		this.passengerList = passengerList;
 	}
 
@@ -142,7 +142,7 @@ public class BookingEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BookingEntity other = (BookingEntity) obj;
+		Booking other = (Booking) obj;
 		if (bookingId == null) {
 			if (other.bookingId != null)
 				return false;

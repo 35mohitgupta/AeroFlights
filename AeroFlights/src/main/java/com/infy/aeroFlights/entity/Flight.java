@@ -1,23 +1,36 @@
-package com.infy.aeroFlights.model;
+package com.infy.aeroFlights.entity;
 
 import java.time.LocalDateTime;
 
-import com.infy.aeroFlights.entity.FlightEntity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="flight")
 public class Flight {
 
+	@Id
+	@Column(name="flight_no")
 	private String flightNo;
 	
+	@Column(name="source")
 	private String source;
 	
+	@Column(name="destination")
 	private String destination;
 	
+	@Column(name="departure")
 	private LocalDateTime departure;
 	
+	@Column(name="arrival")
 	private LocalDateTime arrival;
 	
+	@Column(name="no_of_seats")
 	private Integer noOfSeats;
 	
+	@Column(name="price")
 	private Double price;
 
 	public String getFlightNo() {
@@ -135,30 +148,6 @@ public class Flight {
 		} else if (!source.equals(other.source))
 			return false;
 		return true;
-	}
-
-	public FlightEntity toEntity() {
-		FlightEntity flightEntity = new FlightEntity();
-		flightEntity.setArrival(arrival);
-		flightEntity.setDeparture(departure);
-		flightEntity.setDestination(destination);
-		flightEntity.setFlightNo(flightNo);
-		flightEntity.setNoOfSeats(noOfSeats);
-		flightEntity.setPrice(price);
-		flightEntity.setSource(source);
-		return flightEntity;
-	}
-
-	public static Flight toModel(FlightEntity flightEntity) {
-		Flight flight = new Flight();
-		flight.arrival = flightEntity.getArrival();
-		flight.departure = flightEntity.getDeparture();
-		flight.destination = flightEntity.getDestination();
-		flight.flightNo = flightEntity.getFlightNo();
-		flight.noOfSeats = flightEntity.getNoOfSeats();
-		flight.price = flightEntity.getPrice();
-		flight.source= flightEntity.getSource();
-		return flight;
 	}
 	
 }

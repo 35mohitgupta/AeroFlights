@@ -1,25 +1,25 @@
-package com.infy.aeroFlights.model;
+package com.infy.aeroFlights.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.infy.aeroFlights.entity.BookingEntity;
-import com.infy.aeroFlights.entity.PassengerEntity;
+import com.infy.aeroFlights.entity.Booking;
+import com.infy.aeroFlights.entity.Passenger;
 
-public class Booking {
+public class BookingDTO {
 
 	private Integer bookingId;
 	
-	private User user;
+	private UserDTO user;
 
-	private Flight flight;
+	private FlightDTO flight;
 
-	private Offer offerApplied;
+	private OfferDTO offerApplied;
 	
 	private Integer noOfTickets;
 
 	private Double totalAmount;
 	
-	private List<Passenger> passengerList;
+	private List<PassengerDTO> passengerList;
 	
 	private BookingStatus bookingStatus;
 	
@@ -55,7 +55,7 @@ public class Booking {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Booking other = (Booking) obj;
+		BookingDTO other = (BookingDTO) obj;
 		if (bookingId == null) {
 			if (other.bookingId != null)
 				return false;
@@ -104,27 +104,27 @@ public class Booking {
 		this.bookingId = bookingId;
 	}
 
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 
-	public Flight getFlight() {
+	public FlightDTO getFlight() {
 		return flight;
 	}
 
-	public void setFlight(Flight flight) {
+	public void setFlight(FlightDTO flight) {
 		this.flight = flight;
 	}
 
-	public Offer getOfferApplied() {
+	public OfferDTO getOfferApplied() {
 		return offerApplied;
 	}
 
-	public void setOfferApplied(Offer offerApplied) {
+	public void setOfferApplied(OfferDTO offerApplied) {
 		this.offerApplied = offerApplied;
 	}
 
@@ -144,23 +144,23 @@ public class Booking {
 		this.totalAmount = totalAmount;
 	}
 
-	public List<Passenger> getPassengerList() {
+	public List<PassengerDTO> getPassengerList() {
 		return passengerList;
 	}
 
-	public void setPassengerList(List<Passenger> passengerList) {
+	public void setPassengerList(List<PassengerDTO> passengerList) {
 		this.passengerList = passengerList;
 	}
 
-	public BookingEntity toEntity() {
-		BookingEntity bookingEntity = new BookingEntity();
+	public Booking toEntity() {
+		Booking bookingEntity = new Booking();
 		bookingEntity.setBookingId(bookingId);		
 		bookingEntity.setFlight(flight.toEntity());
 		bookingEntity.setNoOfTickets(noOfTickets);
 		bookingEntity.setOfferApplied(offerApplied.toEntity());
 		
-		ArrayList<PassengerEntity> passengerEntities = new ArrayList<PassengerEntity>();
-		for(Passenger passenger: passengerList) {
+		ArrayList<Passenger> passengerEntities = new ArrayList<Passenger>();
+		for(PassengerDTO passenger: passengerList) {
 			passengerEntities.add(passenger.toEntity());
 		}
 		
@@ -175,20 +175,20 @@ public class Booking {
 		return bookingEntity;
 	}
 	
-	public static Booking toModel(BookingEntity bookingEntity) {
-		Booking booking = new Booking();
+	public static BookingDTO toModel(Booking bookingEntity) {
+		BookingDTO booking = new BookingDTO();
 		booking.bookingId = bookingEntity.getBookingId();
-		booking.flight = Flight.toModel(bookingEntity.getFlight());
+		booking.flight = FlightDTO.toModel(bookingEntity.getFlight());
 		booking.noOfTickets = bookingEntity.getNoOfTickets();
-		booking.offerApplied = Offer.toModel(bookingEntity.getOfferApplied());
+		booking.offerApplied = OfferDTO.toModel(bookingEntity.getOfferApplied());
 		
-		ArrayList<Passenger> passengers = new ArrayList<Passenger>();
-		for(PassengerEntity passengerEntity: bookingEntity.getPassengerList()) {
-			passengers.add(Passenger.toModel(passengerEntity));
+		ArrayList<PassengerDTO> passengers = new ArrayList<PassengerDTO>();
+		for(Passenger passengerEntity: bookingEntity.getPassengerList()) {
+			passengers.add(PassengerDTO.toModel(passengerEntity));
 		}
 		booking.passengerList = passengers;
 		booking.totalAmount = bookingEntity.getTotalAmount();
-		booking.user = User.toModel(bookingEntity.getUser());
+		booking.user = UserDTO.toModel(bookingEntity.getUser());
 		booking.bookingStatus = bookingEntity.getBookingStatus();
 		return booking;
 	}

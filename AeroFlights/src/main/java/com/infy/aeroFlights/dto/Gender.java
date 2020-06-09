@@ -1,4 +1,4 @@
-package com.infy.aeroFlights.model;
+package com.infy.aeroFlights.dto;
 
 public enum Gender {
 	MALE,FEMALE

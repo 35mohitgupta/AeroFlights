@@ -7,12 +7,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.infy.aeroFlights.entity.BookingEntity;
-import com.infy.aeroFlights.model.Booking;
-import com.infy.aeroFlights.model.Flight;
-import com.infy.aeroFlights.model.Offer;
+import com.infy.aeroFlights.dto.BookingDTO;
+import com.infy.aeroFlights.dto.BookingStatus;
+import com.infy.aeroFlights.dto.FlightDTO;
+import com.infy.aeroFlights.dto.OfferDTO;
+import com.infy.aeroFlights.entity.Booking;
+import com.infy.aeroFlights.repository.BookingRepository;
 
 @Repository(value = "AdminDao")
 public class AdminDaoImpl implements AdminDao{
@@ -20,33 +24,38 @@ public class AdminDaoImpl implements AdminDao{
 	@PersistenceContext
 	private EntityManager entityManager;
 	
+	@Autowired
+	private BookingRepository bookingRepository;
+	
 	@Override
-	public List<Booking> viewBookings() {
+	public List<BookingDTO> viewBookings() {
 		// TODO Auto-generated method stub
-		String sqlQuery = "SELECT b FROM BookingEntity b WHERE b.bookingStatus = 'REQUESTED'";
-		Query query = entityManager.createQuery(sqlQuery);
-		List<BookingEntity> bookingEntities = query.getResultList();
-		List<Booking> bookingRequests = new ArrayList<Booking>();
-		for(BookingEntity bookingEntity: bookingEntities) {
-			bookingRequests.add(Booking.toModel(bookingEntity));
+//		String sqlQuery = "SELECT b FROM Booking b WHERE b.bookingStatus = 'REQUESTED'";
+//		Query query = entityManager.createQuery(sqlQuery);
+//		List<Booking> bookingEntities = query.getResultList();
+		List<Booking> bookingEntities = bookingRepository.findByBookingStatusIn(BookingStatus.ACCEPTED,BookingStatus.REJECTED,BookingStatus.REQUESTED);
+		List<BookingDTO> bookingRequests = new ArrayList<BookingDTO>();
+		for(Booking bookingEntity: bookingEntities) {
+			bookingRequests.add(BookingDTO.toModel(bookingEntity));
 		}
+
 		return bookingRequests;
 	}
 
 	@Override
-	public List<Offer> viewOffers() {
+	public List<OfferDTO> viewOffers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void createFlight(Flight flight) {
+	public void createFlight(FlightDTO flight) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void addOffer(Offer offer) {
+	public void addOffer(OfferDTO offer) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -60,7 +69,7 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public void acceptbookingRequest(Integer bookingId) {
 		// TODO Auto-generated method stub
-		String sqlQuery = "UPDATE BookingEntity b SET b.bookingStatus='ACCEPTED' WHERE b.bookingId=:bookingId";
+		String sqlQuery = "UPDATE Booking b SET b.bookingStatus='ACCEPTED' WHERE b.bookingId=:bookingId";
 		Query query = entityManager.createQuery(sqlQuery);
 		query.setParameter("bookingId", bookingId);
 		query.executeUpdate();
@@ -69,7 +78,7 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public void rejectBookingRequest(Integer bookingId) {
 		// TODO Auto-generated method stub
-		String sqlQuery = "UPDATE BookingEntity b SET b.bookingStatus='REJECTED' WHERE b.bookingId=:bookingId";
+		String sqlQuery = "UPDATE Booking b SET b.bookingStatus='REJECTED' WHERE b.bookingId=:bookingId";
 		Query query = entityManager.createQuery(sqlQuery);
 		query.setParameter("bookingId", bookingId);
 		query.executeUpdate();

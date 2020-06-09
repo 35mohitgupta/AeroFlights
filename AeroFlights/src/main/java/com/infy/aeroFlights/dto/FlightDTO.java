@@ -1,36 +1,23 @@
-package com.infy.aeroFlights.entity;
+package com.infy.aeroFlights.dto;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.infy.aeroFlights.entity.Flight;
 
-@Entity
-@Table(name="flight")
-public class FlightEntity {
+public class FlightDTO {
 
-	@Id
-	@Column(name="flight_no")
 	private String flightNo;
 	
-	@Column(name="source")
 	private String source;
 	
-	@Column(name="destination")
 	private String destination;
 	
-	@Column(name="departure")
 	private LocalDateTime departure;
 	
-	@Column(name="arrival")
 	private LocalDateTime arrival;
 	
-	@Column(name="no_of_seats")
 	private Integer noOfSeats;
 	
-	@Column(name="price")
 	private Double price;
 
 	public String getFlightNo() {
@@ -111,7 +98,7 @@ public class FlightEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FlightEntity other = (FlightEntity) obj;
+		FlightDTO other = (FlightDTO) obj;
 		if (arrival == null) {
 			if (other.arrival != null)
 				return false;
@@ -148,6 +135,30 @@ public class FlightEntity {
 		} else if (!source.equals(other.source))
 			return false;
 		return true;
+	}
+
+	public Flight toEntity() {
+		Flight flightEntity = new Flight();
+		flightEntity.setArrival(arrival);
+		flightEntity.setDeparture(departure);
+		flightEntity.setDestination(destination);
+		flightEntity.setFlightNo(flightNo);
+		flightEntity.setNoOfSeats(noOfSeats);
+		flightEntity.setPrice(price);
+		flightEntity.setSource(source);
+		return flightEntity;
+	}
+
+	public static FlightDTO toModel(Flight flightEntity) {
+		FlightDTO flight = new FlightDTO();
+		flight.arrival = flightEntity.getArrival();
+		flight.departure = flightEntity.getDeparture();
+		flight.destination = flightEntity.getDestination();
+		flight.flightNo = flightEntity.getFlightNo();
+		flight.noOfSeats = flightEntity.getNoOfSeats();
+		flight.price = flightEntity.getPrice();
+		flight.source= flightEntity.getSource();
+		return flight;
 	}
 	
 }

@@ -1,8 +1,8 @@
-package com.infy.aeroFlights.model;
+package com.infy.aeroFlights.dto;
 
-import com.infy.aeroFlights.entity.PassengerEntity;
+import com.infy.aeroFlights.entity.Passenger;
 
-public class Passenger {
+public class PassengerDTO {
 
 	private Integer passengerId;
 	
@@ -65,7 +65,7 @@ public class Passenger {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Passenger other = (Passenger) obj;
+		PassengerDTO other = (PassengerDTO) obj;
 		if (age == null) {
 			if (other.age != null)
 				return false;
@@ -86,8 +86,8 @@ public class Passenger {
 		return true;
 	}
 
-	public PassengerEntity toEntity() {
-		PassengerEntity passengerEntity = new PassengerEntity();
+	public Passenger toEntity() {
+		Passenger passengerEntity = new Passenger();
 		passengerEntity.setPassengerId(passengerId);
 		passengerEntity.setAge(age);
 		passengerEntity.setGender(gender);
@@ -96,8 +96,8 @@ public class Passenger {
 	}
 	
 	
-	public static Passenger toModel(PassengerEntity passengerEntity) {
-		Passenger passenger = new Passenger();
+	public static PassengerDTO toModel(Passenger passengerEntity) {
+		PassengerDTO passenger = new PassengerDTO();
 		passenger.passengerId = passengerEntity.getPassengerId();
 		passenger.age = passengerEntity.getAge();
 		passenger.gender = passengerEntity.getGender();
