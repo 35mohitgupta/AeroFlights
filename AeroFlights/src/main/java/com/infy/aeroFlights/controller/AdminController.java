@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.infy.aeroFlights.dto.BookingDTO;
 import com.infy.aeroFlights.dto.FlightDTO;
+import com.infy.aeroFlights.dto.OfferDTO;
 import com.infy.aeroFlights.service.AdminService;
 
 @CrossOrigin
@@ -44,6 +45,23 @@ public class AdminController {
 	public ResponseEntity<String> rejectRequest(@PathVariable("bookingId") Integer bookingId) {
 		adminService.rejectBookingRequest(bookingId);
 		return new ResponseEntity<String>("Flight request with BookingId: "+bookingId+" is REJECTED", HttpStatus.OK);
+	}
+	
+	@GetMapping("/view-offers")
+	public ResponseEntity<List<OfferDTO>> viewOffers(){
+		return new ResponseEntity<List<OfferDTO>>(adminService.viewOffers(), HttpStatus.OK);
+	}
+	
+	@PostMapping("/add-offer")
+	public ResponseEntity<String> addOffer(@RequestBody OfferDTO offer) throws Exception{
+		adminService.addOffer(offer);
+		return new ResponseEntity<String>("Offer added with title "+offer.getOfferTitle(), HttpStatus.OK);
+	}
+	
+	@PutMapping("/remove-offer/{offerTitle}")
+	public ResponseEntity<String> removeOffers(@PathVariable("offerTitle") String offerTitle){
+		adminService.removeOffer(offerTitle);
+		return new ResponseEntity<String>("Offer with title "+offerTitle+" is removed", HttpStatus.OK);
 	}
 	
 	@PostMapping("/create-flight")

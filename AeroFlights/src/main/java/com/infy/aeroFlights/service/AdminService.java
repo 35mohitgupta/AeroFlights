@@ -18,8 +18,8 @@ public interface AdminService {
 	
 	public void createFlight(FlightDTO flight);
 	
-	public void addOffer(OfferDTO offer);
+	public void addOffer(OfferDTO offer) throws Exception;
 	
-	public void removeOffer(String offertitle);
+	public void removeOffer(String offerTitle);
 	
 }
