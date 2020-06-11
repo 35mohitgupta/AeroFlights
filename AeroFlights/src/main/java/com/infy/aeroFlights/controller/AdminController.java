@@ -54,6 +54,7 @@ public class AdminController {
 	
 	@PostMapping("/add-offer")
 	public ResponseEntity<String> addOffer(@RequestBody OfferDTO offer) throws Exception{
+		System.out.println(">>>>>>> offer"+offer);
 		adminService.addOffer(offer);
 		return new ResponseEntity<String>("Offer added with title "+offer.getOfferTitle(), HttpStatus.OK);
 	}

@@ -84,5 +84,10 @@ public class OfferDTO {
 		offer.status = offerEntity.getStatus();
 		return offer;
 	}
+
+	@Override
+	public String toString() {
+		return "OfferDTO [offerTitle=" + offerTitle + ", discount=" + discount + ", status=" + status + "]";
+	}
 	
 }
