@@ -22,6 +22,16 @@ public class Administrator {
 	@Column(name="phone_no")
 	private String phoneNo;
 
+	public Administrator() {}
+	
+	public Administrator(String username, String email, String password, String phoneNo) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.phoneNo = phoneNo;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -63,6 +73,12 @@ public class Administrator {
 		result = prime * result + ((phoneNo == null) ? 0 : phoneNo.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Administrator [username=" + username + ", email=" + email + ", password=" + password + ", phoneNo="
+				+ phoneNo + "]";
 	}
 
 	@Override

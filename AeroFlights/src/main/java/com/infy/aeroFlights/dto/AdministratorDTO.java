@@ -11,6 +11,16 @@ public class AdministratorDTO {
 	private String password;
 	
 	private String phoneNo;
+	
+	public AdministratorDTO() {}
+
+	public AdministratorDTO(String username, String email, String password, String phoneNo) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.phoneNo = phoneNo;
+	}
 
 	public String getUsername() {
 		return username;

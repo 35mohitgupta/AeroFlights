@@ -20,6 +20,20 @@ public class FlightDTO {
 	
 	private Double price;
 
+	public FlightDTO() {}
+	
+	public FlightDTO(String flightNo, String source, String destination, LocalDateTime departure, LocalDateTime arrival,
+			Integer noOfSeats, Double price) {
+		super();
+		this.flightNo = flightNo;
+		this.source = source;
+		this.destination = destination;
+		this.departure = departure;
+		this.arrival = arrival;
+		this.noOfSeats = noOfSeats;
+		this.price = price;
+	}
+
 	public String getFlightNo() {
 		return flightNo;
 	}

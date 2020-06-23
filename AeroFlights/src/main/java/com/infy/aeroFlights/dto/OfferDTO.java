@@ -10,7 +10,15 @@ public class OfferDTO {
 
 	private OfferStatus status;
 	
+	public OfferDTO() {}
 	
+	public OfferDTO(String offerTitle, Double discount, OfferStatus status) {
+		super();
+		this.offerTitle = offerTitle;
+		this.discount = discount;
+		this.status = status;
+	}
+
 	public String getOfferTitle() {
 		return offerTitle;
 	}

@@ -30,7 +30,16 @@ public class Passenger {
 	@Column(name = "gender")
 	private Gender gender;
 
+	public Passenger() {}
 	
+	public Passenger(Integer passengerId, String name, Integer age, Gender gender) {
+		super();
+		this.passengerId = passengerId;
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -40,6 +49,11 @@ public class Passenger {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((passengerId == null) ? 0 : passengerId.hashCode());
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Passenger [passengerId=" + passengerId + ", name=" + name + ", age=" + age + ", gender=" + gender + "]";
 	}
 
 	@Override

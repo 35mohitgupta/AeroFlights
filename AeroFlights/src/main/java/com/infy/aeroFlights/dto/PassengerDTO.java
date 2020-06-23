@@ -12,6 +12,16 @@ public class PassengerDTO {
 	
 	private Gender gender;
 
+	public PassengerDTO() {}
+	
+	public PassengerDTO(Integer passengerId, String name, Integer age, Gender gender) {
+		super();
+		this.passengerId = passengerId;
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+	}
+
 	public Integer getPassengerId() {
 		return passengerId;
 	}

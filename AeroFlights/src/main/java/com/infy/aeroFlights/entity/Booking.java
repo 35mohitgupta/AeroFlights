@@ -53,7 +53,21 @@ public class Booking {
 	@Column(name = "booking_status")
 	private BookingStatus bookingStatus;
 
+	public Booking() {}
 	
+	public Booking(Integer bookingId, User user, Flight flight, Offer offerApplied, Integer noOfTickets,
+			Double totalAmount, List<Passenger> passengerList, BookingStatus bookingStatus) {
+		super();
+		this.bookingId = bookingId;
+		this.user = user;
+		this.flight = flight;
+		this.offerApplied = offerApplied;
+		this.noOfTickets = noOfTickets;
+		this.totalAmount = totalAmount;
+		this.passengerList = passengerList;
+		this.bookingStatus = bookingStatus;
+	}
+
 	public BookingStatus getBookingStatus() {
 		return bookingStatus;
 	}
@@ -132,6 +146,13 @@ public class Booking {
 		result = prime * result + ((totalAmount == null) ? 0 : totalAmount.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Booking [bookingId=" + bookingId + ", user=" + user + ", flight=" + flight + ", offerApplied="
+				+ offerApplied + ", noOfTickets=" + noOfTickets + ", totalAmount=" + totalAmount + ", passengerList="
+				+ passengerList + ", bookingStatus=" + bookingStatus + "]";
 	}
 
 	@Override

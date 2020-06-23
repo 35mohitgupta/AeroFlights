@@ -23,7 +23,21 @@ public class BookingDTO {
 	
 	private BookingStatus bookingStatus;
 	
+	public BookingDTO() {}
 	
+	public BookingDTO(Integer bookingId, UserDTO user, FlightDTO flight, OfferDTO offerApplied, Integer noOfTickets,
+			Double totalAmount, List<PassengerDTO> passengerList, BookingStatus bookingStatus) {
+		super();
+		this.bookingId = bookingId;
+		this.user = user;
+		this.flight = flight;
+		this.offerApplied = offerApplied;
+		this.noOfTickets = noOfTickets;
+		this.totalAmount = totalAmount;
+		this.passengerList = passengerList;
+		this.bookingStatus = bookingStatus;
+	}
+
 	public BookingStatus getBookingStatus() {
 		return bookingStatus;
 	}

@@ -22,6 +22,22 @@ public class User {
 	@Column(name="phone_no")
 	private String phoneNo;
 
+	public User() {}
+	
+	public User(String username, String email, String password, String phoneNo) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.phoneNo = phoneNo;
+	}
+
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", email=" + email + ", password=" + password + ", phoneNo=" + phoneNo
+				+ "]";
+	}
+
 	public String getUsername() {
 		return username;
 	}

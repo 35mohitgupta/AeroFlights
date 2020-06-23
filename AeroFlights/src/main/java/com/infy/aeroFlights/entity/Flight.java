@@ -33,6 +33,26 @@ public class Flight {
 	@Column(name="price")
 	private Double price;
 
+	public Flight() {}
+	
+	public Flight(String flightNo, String source, String destination, LocalDateTime departure, LocalDateTime arrival,
+			Integer noOfSeats, Double price) {
+		super();
+		this.flightNo = flightNo;
+		this.source = source;
+		this.destination = destination;
+		this.departure = departure;
+		this.arrival = arrival;
+		this.noOfSeats = noOfSeats;
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Flight [flightNo=" + flightNo + ", source=" + source + ", destination=" + destination + ", departure="
+				+ departure + ", arrival=" + arrival + ", noOfSeats=" + noOfSeats + ", price=" + price + "]";
+	}
+
 	public String getFlightNo() {
 		return flightNo;
 	}

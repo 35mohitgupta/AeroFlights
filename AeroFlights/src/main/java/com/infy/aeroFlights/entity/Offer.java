@@ -24,7 +24,20 @@ public class Offer {
 	@Column(name = "status")
 	private OfferStatus status;
 
+	public Offer() {}
 	
+	public Offer(String offerTitle, Double discount, OfferStatus status) {
+		super();
+		this.offerTitle = offerTitle;
+		this.discount = discount;
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Offer [offerTitle=" + offerTitle + ", discount=" + discount + ", status=" + status + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
