@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.infy.aeroFlights.dto.BookingDTO;
 import com.infy.aeroFlights.dto.FlightDTO;
 import com.infy.aeroFlights.dto.OfferDTO;
+import com.infy.aeroFlights.exception.BookingException;
+import com.infy.aeroFlights.exception.FlightException;
+import com.infy.aeroFlights.exception.OfferException;
+import com.infy.aeroFlights.exception.PassengerException;
+import com.infy.aeroFlights.exception.UserException;
 import com.infy.aeroFlights.service.UserService;
 
 @CrossOrigin
@@ -29,24 +34,24 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping(path="view-bookings/{username}")
-	public ResponseEntity<List<BookingDTO>> viewBookings(@PathVariable(name = "username") String username){
+	public ResponseEntity<List<BookingDTO>> viewBookings(@PathVariable(name = "username") String username) throws UserException{
 		return new ResponseEntity<List<BookingDTO>>(userService.viewBooking(username), HttpStatus.OK);
 	}
 	
 	@PutMapping(path = "cancel-booking/{bookingId}")
-	public ResponseEntity<String> cancelBookings(@PathVariable(name = "bookingId") Integer bookingId){
+	public ResponseEntity<String> cancelBookings(@PathVariable(name = "bookingId") Integer bookingId) throws BookingException{
 		userService.cancelBooking(bookingId);
 		return new ResponseEntity<String>("Booking with id- "+bookingId+" is cancelled", HttpStatus.OK);
 	}
 	
 	@PostMapping(path = "new-booking")
-	public ResponseEntity<String> newBookings(@RequestBody BookingDTO bookingDTO){
+	public ResponseEntity<String> newBookings(@RequestBody BookingDTO bookingDTO) throws FlightException, BookingException, OfferException, PassengerException, UserException{
 		Integer bookingId = userService.addBooking(bookingDTO);
 		return new ResponseEntity<String>("New Booking is created with id- "+bookingId, HttpStatus.OK);
 	}
 	
 	@PostMapping(path="flights/{from}/{to}")
-	public ResponseEntity<List<FlightDTO>> getFlightsFromToOn(@PathVariable(name = "from") String from, @PathVariable(name="to") String to, @RequestBody LocalDate date){
+	public ResponseEntity<List<FlightDTO>> getFlightsFromToOn(@PathVariable(name = "from") String from, @PathVariable(name="to") String to, @RequestBody LocalDate date) throws FlightException{
 		List<FlightDTO> searchedFlight = userService.getFlightsFromToOn(from, to, date);
 		ResponseEntity<List<FlightDTO>> response = new ResponseEntity<List<FlightDTO>>(searchedFlight, HttpStatus.OK);
 		return response;
@@ -59,4 +64,8 @@ public class UserController {
 		return response;
 	}
 	
+	@GetMapping("/no-of-pending-bookings/{username}")
+	public ResponseEntity<Integer> noOfBookingsPending(@PathVariable("username") String username){
+		return new ResponseEntity<Integer>(userService.getNoOfBookingsRequested(username), HttpStatus.OK);
+	}
 }

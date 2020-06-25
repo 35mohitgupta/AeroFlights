@@ -18,16 +18,22 @@ import com.infy.aeroFlights.dto.OfferStatus;
 import com.infy.aeroFlights.entity.Booking;
 import com.infy.aeroFlights.entity.Flight;
 import com.infy.aeroFlights.entity.Offer;
+import com.infy.aeroFlights.exception.BookingException;
+import com.infy.aeroFlights.exception.FlightException;
+import com.infy.aeroFlights.exception.OfferException;
 import com.infy.aeroFlights.repository.BookingRepository;
 import com.infy.aeroFlights.repository.FlightRepository;
 import com.infy.aeroFlights.repository.OfferRepository;
+import com.infy.aeroFlights.validators.BookingValidator;
+import com.infy.aeroFlights.validators.FlightValidator;
+import com.infy.aeroFlights.validators.OfferValidator;
 
 @Transactional
 @Service(value = "AdminService")
 public class AdminServiceImpl implements AdminService{
 
 	@Autowired
-	private BookingRepository bookingRpository;
+	private BookingRepository bookingRepository;
 	
 	@Autowired
 	private FlightRepository flightRepository;
@@ -36,9 +42,8 @@ public class AdminServiceImpl implements AdminService{
 	private OfferRepository offerRepository;
 	
 	@Override
-	public List<BookingDTO> viewBookings() {
-		
-		List<Booking> bookingEntities = bookingRpository.findByBookingStatusIn(BookingStatus.ACCEPTED,BookingStatus.REJECTED,BookingStatus.REQUESTED);
+	public List<BookingDTO> viewBookings() {		
+		List<Booking> bookingEntities = bookingRepository.findByBookingStatusIn(BookingStatus.ACCEPTED,BookingStatus.REJECTED,BookingStatus.REQUESTED);
 		List<BookingDTO> bookingRequests = new ArrayList<BookingDTO>();
 		for(Booking bookingEntity: bookingEntities) {
 			bookingRequests.add(BookingDTO.toModel(bookingEntity));
@@ -57,18 +62,20 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public void createFlight(FlightDTO flight) {
+	public void createFlight(FlightDTO flight) throws FlightException {
+		FlightValidator.validateFlight(flight);
 		Flight flightEntity = flight.toEntity();
 		flightRepository.saveAndFlush(flightEntity);
 	}
 
 	@Override
-	public void addOffer(OfferDTO offer) throws Exception {
+	public void addOffer(OfferDTO offer) throws OfferException{
+		OfferValidator.validateOffer(offer);
 		Optional<Offer> existingOfferOptional = offerRepository.findById(offer.getOfferTitle());
 		if(existingOfferOptional.isPresent()) {
 			Offer offerEntity = existingOfferOptional.get();
 			if(offerEntity.getStatus() == OfferStatus.ACTIVE)
-				throw new Exception("Offer Already Exists");
+				throw new OfferException("Offer Already Exists");
 			offerEntity.setDiscount(offer.getDiscount());
 			offerEntity.setStatus(OfferStatus.ACTIVE);
 		}else {
@@ -78,7 +85,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public void removeOffer(String offerTitle) {
+	public void removeOffer(String offerTitle) throws OfferException {
+		OfferValidator.validateOfferTitle(offerTitle);
 		Optional<Offer> offerOptional = offerRepository.findById(offerTitle);
 		if(offerOptional.isPresent()) {
 			Offer offer = offerOptional.get();
@@ -88,25 +96,30 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public void acceptbookingRequest(Integer bookingId) {
-		// TODO Auto-generated method stub
-		Optional<Booking> bookingOptional = bookingRpository.findById(bookingId);
+	public void acceptbookingRequest(Integer bookingId) throws BookingException {
+		BookingValidator.validateBookingId(bookingId);
+		Optional<Booking> bookingOptional = bookingRepository.findById(bookingId);
 		if(bookingOptional.isPresent()) {
 			Booking booking = bookingOptional.get();
 			booking.setBookingStatus(BookingStatus.ACCEPTED);
-			bookingRpository.saveAndFlush(booking);
+			bookingRepository.saveAndFlush(booking);
 		}
 	}
 
 	@Override
-	public void rejectBookingRequest(Integer bookingId) {
-		// TODO Auto-generated method stub
-		Optional<Booking> bookingOptional = bookingRpository.findById(bookingId);
+	public void rejectBookingRequest(Integer bookingId) throws BookingException {
+		BookingValidator.validateBookingId(bookingId);
+		Optional<Booking> bookingOptional = bookingRepository.findById(bookingId);
 		if(bookingOptional.isPresent()) {
 			Booking booking = bookingOptional.get();
 			booking.setBookingStatus(BookingStatus.REJECTED);
-			bookingRpository.saveAndFlush(booking);
+			bookingRepository.saveAndFlush(booking);
 		}
+	}
+
+	@Override
+	public Integer noOfRequestsPending() {
+		return bookingRepository.findNoOfRequests(BookingStatus.REQUESTED);
 	}
 
 }

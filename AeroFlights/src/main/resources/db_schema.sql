@@ -55,3 +55,4 @@ age int,
 gender varchar(10),
 FOREIGN KEY(booking_id) REFERENCES booking(booking_id)
 );
+

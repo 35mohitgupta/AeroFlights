@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.infy.aeroFlights.dto.BookingDTO;
 import com.infy.aeroFlights.dto.FlightDTO;
 import com.infy.aeroFlights.dto.OfferDTO;
+import com.infy.aeroFlights.exception.BookingException;
+import com.infy.aeroFlights.exception.FlightException;
+import com.infy.aeroFlights.exception.OfferException;
 import com.infy.aeroFlights.service.AdminService;
 
 @CrossOrigin
@@ -36,13 +39,13 @@ public class AdminController {
 	}
 	
 	@PutMapping("/accept-request/{bookingId}")
-	public ResponseEntity<String> acceptRequest(@PathVariable("bookingId") Integer bookingId) {
+	public ResponseEntity<String> acceptRequest(@PathVariable("bookingId") Integer bookingId) throws BookingException {
 		adminService.acceptbookingRequest(bookingId);
 		return new ResponseEntity<String>("Flight request with BookingId: "+bookingId+" is ACCEPTED", HttpStatus.OK);
 	}
 	
 	@PutMapping("/reject-request/{bookingId}")
-	public ResponseEntity<String> rejectRequest(@PathVariable("bookingId") Integer bookingId) {
+	public ResponseEntity<String> rejectRequest(@PathVariable("bookingId") Integer bookingId) throws BookingException {
 		adminService.rejectBookingRequest(bookingId);
 		return new ResponseEntity<String>("Flight request with BookingId: "+bookingId+" is REJECTED", HttpStatus.OK);
 	}
@@ -54,20 +57,25 @@ public class AdminController {
 	
 	@PostMapping("/add-offer")
 	public ResponseEntity<String> addOffer(@RequestBody OfferDTO offer) throws Exception{
-		System.out.println(">>>>>>> offer"+offer);
 		adminService.addOffer(offer);
 		return new ResponseEntity<String>("Offer added with title "+offer.getOfferTitle(), HttpStatus.OK);
 	}
 	
 	@PutMapping("/remove-offer/{offerTitle}")
-	public ResponseEntity<String> removeOffers(@PathVariable("offerTitle") String offerTitle){
+	public ResponseEntity<String> removeOffers(@PathVariable("offerTitle") String offerTitle) throws OfferException{
 		adminService.removeOffer(offerTitle);
 		return new ResponseEntity<String>("Offer with title "+offerTitle+" is removed", HttpStatus.OK);
 	}
 	
 	@PostMapping("/create-flight")
-	public ResponseEntity<String> createFlight(@RequestBody FlightDTO newFlight) {
+	public ResponseEntity<String> createFlight(@RequestBody FlightDTO newFlight) throws FlightException {
 		adminService.createFlight(newFlight);
 		return new ResponseEntity<String>("New Flight is created with FlightNo: "+newFlight.getFlightNo(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/no-of-pending-requests")
+	public ResponseEntity<Integer> noOfRequestsPending(){
+		return new ResponseEntity<Integer>(adminService.noOfRequestsPending(), HttpStatus.OK);
+	}
+	
 }

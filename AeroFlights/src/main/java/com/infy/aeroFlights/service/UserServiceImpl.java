@@ -19,10 +19,18 @@ import com.infy.aeroFlights.entity.Booking;
 import com.infy.aeroFlights.entity.Flight;
 import com.infy.aeroFlights.entity.Offer;
 import com.infy.aeroFlights.entity.Passenger;
+import com.infy.aeroFlights.exception.BookingException;
+import com.infy.aeroFlights.exception.FlightException;
+import com.infy.aeroFlights.exception.OfferException;
+import com.infy.aeroFlights.exception.PassengerException;
+import com.infy.aeroFlights.exception.UserException;
 import com.infy.aeroFlights.repository.BookingRepository;
 import com.infy.aeroFlights.repository.FlightRepository;
 import com.infy.aeroFlights.repository.OfferRepository;
 import com.infy.aeroFlights.repository.PassengerRepository;
+import com.infy.aeroFlights.validators.BookingValidator;
+import com.infy.aeroFlights.validators.FlightValidator;
+import com.infy.aeroFlights.validators.UserValidator;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{
@@ -31,16 +39,14 @@ public class UserServiceImpl implements UserService{
 	private BookingRepository bookingRepository;
 	
 	@Autowired
-	private PassengerRepository passengerRepository;
-	
-	@Autowired
 	private FlightRepository flightRepository;
 	
 	@Autowired
 	private OfferRepository offerRepository;
 	
 	@Override
-	public List<BookingDTO> viewBooking(String username) {
+	public List<BookingDTO> viewBooking(String username) throws UserException {
+		UserValidator.validateUsername(username);
 		List<Booking> bookingEntities = bookingRepository.findByUsername(username);
 		List<BookingDTO> bookingDTOs = new ArrayList<BookingDTO>();
 		for(Booking bookingEntity: bookingEntities) {
@@ -50,7 +56,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void cancelBooking(Integer bookingId) {
+	public void cancelBooking(Integer bookingId) throws BookingException {
+		BookingValidator.validateBookingId(bookingId);
 		Optional<Booking> bookOptional = bookingRepository.findById(bookingId);
 		if(bookOptional.isPresent()) {
 			Booking booking = bookOptional.get();
@@ -61,19 +68,21 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Integer addBooking(BookingDTO bookingDTO) {
+	public Integer addBooking(BookingDTO bookingDTO) throws FlightException, BookingException, OfferException, PassengerException, UserException {
+		BookingValidator.validateBooking(bookingDTO);
 		Booking booking = bookingDTO.toEntity();
-//		for(Passenger passenger: booking.getPassengerList()) {
-//			passengerRepository.save(passenger);
-//		}
 		bookingRepository.saveAndFlush(booking);
 		return booking.getBookingId();
 	}
 
 	@Override
-	public List<FlightDTO> getFlightsFromToOn(String from, String to, LocalDate date) {
+	public List<FlightDTO> getFlightsFromToOn(String from, String to, LocalDate date) throws FlightException {
 		LocalDateTime startTime = LocalDateTime.of(date, LocalTime.of(0, 0, 0));
 		LocalDateTime endTime = LocalDateTime.of(date, LocalTime.of(23, 59, 59));
+		FlightValidator.validateFlightDestination(to);
+		FlightValidator.validateFlightSource(from);
+		if(date == null)
+			throw new FlightException("INVALID_DATE");
 		List<Flight> flightEntities = flightRepository.findBySourceDestinationAndDeparture(from, to, startTime,endTime);
 		List<FlightDTO> flightDTOs = new ArrayList<FlightDTO>();
 		for(Flight flightEntity: flightEntities) {
@@ -90,6 +99,11 @@ public class UserServiceImpl implements UserService{
 			offerDtos.add(OfferDTO.toModel(offerEntity));
 		}
 		return offerDtos;
+	}
+
+	@Override
+	public Integer getNoOfBookingsRequested(String username) {
+		return bookingRepository.findNoOfBookingsForUser(username,BookingStatus.REQUESTED);
 	}
 
 }

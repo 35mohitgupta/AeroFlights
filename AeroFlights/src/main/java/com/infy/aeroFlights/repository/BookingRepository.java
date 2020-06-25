@@ -14,4 +14,10 @@ public interface BookingRepository extends JpaRepository<Booking	, Integer>{
 	
 	@Query("select b from Booking b where b.user.username = ?1")
 	List<Booking> findByUsername(String username);
+	
+	@Query("select count(b) from Booking b where b.bookingStatus = ?1")
+	Integer findNoOfRequests(BookingStatus bookingStatus);
+	
+	@Query("select count(b) from Booking b where b.user.username = ?1 and b.bookingStatus = ?2")
+	Integer findNoOfBookingsForUser(String username,BookingStatus bookingStatus);
 }
