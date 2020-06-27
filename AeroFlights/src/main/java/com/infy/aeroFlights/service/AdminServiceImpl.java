@@ -75,7 +75,7 @@ public class AdminServiceImpl implements AdminService{
 		if(existingOfferOptional.isPresent()) {
 			Offer offerEntity = existingOfferOptional.get();
 			if(offerEntity.getStatus() == OfferStatus.ACTIVE)
-				throw new OfferException("Offer Already Exists");
+				throw new OfferException("OFFER_ALREADY_EXISTS");
 			offerEntity.setDiscount(offer.getDiscount());
 			offerEntity.setStatus(OfferStatus.ACTIVE);
 		}else {
@@ -90,8 +90,12 @@ public class AdminServiceImpl implements AdminService{
 		Optional<Offer> offerOptional = offerRepository.findById(offerTitle);
 		if(offerOptional.isPresent()) {
 			Offer offer = offerOptional.get();
+			if(offer.getStatus() == OfferStatus.INACTIVE)
+				throw new OfferException("NO_ACTIVE_OFFER_WITH_THIS_OFFER_TITLE");
 			offer.setStatus(OfferStatus.INACTIVE);
 			offerRepository.saveAndFlush(offer);
+		}else {
+			throw new OfferException("NO_OFFER_EXISTS_WITH_THIS_OFFER_TITLE");
 		}
 	}
 
@@ -103,6 +107,8 @@ public class AdminServiceImpl implements AdminService{
 			Booking booking = bookingOptional.get();
 			booking.setBookingStatus(BookingStatus.ACCEPTED);
 			bookingRepository.saveAndFlush(booking);
+		}else {
+			throw new BookingException("NO_BOOKING_EXISTS_WITH_THIS_BOOKING_ID");
 		}
 	}
 
@@ -114,6 +120,8 @@ public class AdminServiceImpl implements AdminService{
 			Booking booking = bookingOptional.get();
 			booking.setBookingStatus(BookingStatus.REJECTED);
 			bookingRepository.saveAndFlush(booking);
+		}else {
+			throw new BookingException("NO_BOOKING_EXISTS_WITH_THIS_BOOKING_ID");
 		}
 	}
 

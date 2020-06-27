@@ -63,6 +63,8 @@ public class UserServiceImpl implements UserService{
 			Booking booking = bookOptional.get();
 			booking.setBookingStatus(BookingStatus.CANCELLED);
 			bookingRepository.saveAndFlush(booking);
+		}else {
+			throw new BookingException("NO_BOOKING_EXISTS_WITH_THIS_BOOKING_ID");
 		}
 		
 	}
@@ -77,12 +79,12 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<FlightDTO> getFlightsFromToOn(String from, String to, LocalDate date) throws FlightException {
-		LocalDateTime startTime = LocalDateTime.of(date, LocalTime.of(0, 0, 0));
-		LocalDateTime endTime = LocalDateTime.of(date, LocalTime.of(23, 59, 59));
-		FlightValidator.validateFlightDestination(to);
-		FlightValidator.validateFlightSource(from);
 		if(date == null)
 			throw new FlightException("INVALID_DATE");
+		FlightValidator.validateFlightDestination(to);
+		FlightValidator.validateFlightSource(from);
+		LocalDateTime startTime = LocalDateTime.of(date, LocalTime.of(0, 0));
+		LocalDateTime endTime = LocalDateTime.of(date, LocalTime.of(23, 59));
 		List<Flight> flightEntities = flightRepository.findBySourceDestinationAndDeparture(from, to, startTime,endTime);
 		List<FlightDTO> flightDTOs = new ArrayList<FlightDTO>();
 		for(Flight flightEntity: flightEntities) {

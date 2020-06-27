@@ -15,6 +15,8 @@ public class FlightValidator {
 		validateFlightNo(flight.getFlightNo());
 		validateFlightNoOfSeat(flight.getNoOfSeats());
 		validateFlightPrice(flight.getPrice());
+		sourceDestinationCheck(flight.getSource(), flight.getDestination());
+		arrivalDepartureCheck(flight.getDeparture(), flight.getArrival());
 	}
 	
 	public static void validateFlightArrival(LocalDateTime arrival) throws FlightException {
@@ -50,6 +52,16 @@ public class FlightValidator {
 	public static void validateFlightPrice(Double price) throws FlightException {
 		if(price == null || price <= 0)
 			throw new FlightException("INVALID_FLIGHT_PRICE");
+	}
+	
+	public static void sourceDestinationCheck(String from, String to) throws FlightException {
+		if(from.equalsIgnoreCase(to))
+			throw new FlightException("FLIGHT_SOURCE_AND_DESTINATION_CANNOT_BE_SAME");
+	}
+	
+	public static void arrivalDepartureCheck(LocalDateTime departure, LocalDateTime arrival) throws FlightException {
+		if(!departure.isBefore(arrival))
+			throw new FlightException("ARRIVAL_TIME_SHOULD_BE_AFTER_DEPARTURE_TIME");
 	}
 	
 }

@@ -8,7 +8,6 @@ import com.infy.aeroFlights.dto.FlightDTO;
 import com.infy.aeroFlights.dto.OfferDTO;
 import com.infy.aeroFlights.dto.PassengerDTO;
 import com.infy.aeroFlights.dto.UserDTO;
-import com.infy.aeroFlights.entity.Passenger;
 import com.infy.aeroFlights.exception.BookingException;
 import com.infy.aeroFlights.exception.FlightException;
 import com.infy.aeroFlights.exception.OfferException;

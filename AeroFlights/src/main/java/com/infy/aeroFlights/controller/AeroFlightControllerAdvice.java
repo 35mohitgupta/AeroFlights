@@ -26,6 +26,8 @@ public class AeroFlightControllerAdvice {
 	
 	@ExceptionHandler(value = BookingException.class)
 	public ResponseEntity<String> handleBookingException(BookingException exception){
+		if(exception.getMessage().equals("NO_BOOKING_EXISTS_WITH_THIS_BOOKING_ID"))
+			return new ResponseEntity<String>(exception.getMessage(), HttpStatus.NOT_FOUND);
 		return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 	
@@ -36,6 +38,11 @@ public class AeroFlightControllerAdvice {
 	
 	@ExceptionHandler(value = PassengerException.class)
 	public ResponseEntity<String> handlePassengerException(PassengerException exception){
+		return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(value = Exception.class)
+	public ResponseEntity<String> handleOtherException(Exception exception){
 		return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 }
