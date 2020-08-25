@@ -1,0 +1,374 @@
+{
+	"info": {
+		"_postman_id": "5a0f5fe6-28c9-46e4-8dda-90e01ea8ce03",
+		"name": "sonarqube api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "issues",
+			"item": [
+				{
+					"name": "get all issues",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/issues/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"issues",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getting a particular issue with issue key",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9000/api/issues/search?issues=AXQg2upbGMC3JjE-vt-y,AXQg2upbGMC3JjE-vt-6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"issues",
+								"search"
+							],
+							"query": [
+								{
+									"key": "issues",
+									"value": "AXQg2upbGMC3JjE-vt-y,AXQg2upbGMC3JjE-vt-6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get a  issue based on issue statuses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/issues/search?statuses=OPEN,REOPENED",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"issues",
+								"search"
+							],
+							"query": [
+								{
+									"key": "statuses",
+									"value": "OPEN,REOPENED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get a  issue based on resolved or not",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/issues/search?resolved=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"issues",
+								"search"
+							],
+							"query": [
+								{
+									"key": "resolved",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get issues based on severity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/issues/search?severities=MAJOR,CRITICAL",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"issues",
+								"search"
+							],
+							"query": [
+								{
+									"key": "severities",
+									"value": "MAJOR,CRITICAL"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get issues based on component key",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/issues/search?componentKeys=com.infy:AeroFlights:src/main/java/com/infy/aeroFlights/controller/AdminController.java",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"issues",
+								"search"
+							],
+							"query": [
+								{
+									"key": "componentKeys",
+									"value": "com.infy:AeroFlights:src/main/java/com/infy/aeroFlights/controller/AdminController.java"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get issues tags",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/issues/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"issues",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "measures",
+			"item": [
+				{
+					"name": "Get component measure",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/measures/component?component=com.infy:AeroFlights&metricKeys=complexity,violations,ncloc,coverage&additionalFields=metrics,period",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"measures",
+								"component"
+							],
+							"query": [
+								{
+									"key": "component",
+									"value": "com.infy:AeroFlights"
+								},
+								{
+									"key": "metricKeys",
+									"value": "complexity,violations,ncloc,coverage"
+								},
+								{
+									"key": "additionalFields",
+									"value": "metrics,period"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get component measure Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/measures/component_tree?component=com.infy.sonar:sonar-spring-demo&metricKeys=complexity,violations,ncloc&additionalFields=metrics,period",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"measures",
+								"component_tree"
+							],
+							"query": [
+								{
+									"key": "component",
+									"value": "com.infy.sonar:sonar-spring-demo"
+								},
+								{
+									"key": "metricKeys",
+									"value": "complexity,violations,ncloc"
+								},
+								{
+									"key": "additionalFields",
+									"value": "metrics,period"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get component measure search history",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/measures/search_history?component=com.infy.sonar:sonar-spring-demo&metrics=complexity,ncloc,coverage,new_violations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"measures",
+								"search_history"
+							],
+							"query": [
+								{
+									"key": "component",
+									"value": "com.infy.sonar:sonar-spring-demo"
+								},
+								{
+									"key": "metrics",
+									"value": "complexity,ncloc,coverage,new_violations"
+								},
+								{
+									"key": "additionalFields",
+									"value": "metrics,period",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "details of all sonarqube api request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/webservices/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"webservices",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authenticate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/authentication/validate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"authentication",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get metrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/authentication/validate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"authentication",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

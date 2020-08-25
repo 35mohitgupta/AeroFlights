@@ -34,8 +34,8 @@ public class AdminController {
 	@GetMapping("/view-requests")
 	public ResponseEntity<List<BookingDTO>>  viewRequests() {
 		List<BookingDTO> bookingRequests = adminService.viewBookings();
-		ResponseEntity<List<BookingDTO>> reqesponse = new ResponseEntity<List<BookingDTO>>(bookingRequests, HttpStatus.OK);
-		return reqesponse;
+		ResponseEntity<List<BookingDTO>> response = new ResponseEntity<List<BookingDTO>>(bookingRequests, HttpStatus.OK);
+		return response;
 	}
 	
 	@PutMapping("/accept-request/{bookingId}")
